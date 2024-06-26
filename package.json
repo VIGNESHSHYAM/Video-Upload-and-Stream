@@ -1,0 +1,31 @@
+{
+  
+  "name": "video_upload_and_stream",
+  "version": "1.0.0",
+  "description": "This project allows you to upload video files and convert them into HLS format for streaming.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "multer": "^1.4.5-lts.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VIGNESHSHYAM/Video-Upload-and-Stream.git"
+  },
+  "keywords": [
+    "express",
+    "cors",
+    "multer"
+  ],
+  "author": "vignesh_a",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VIGNESHSHYAM/Video-Upload-and-Stream/issues"
+  },
+  "homepage": "https://github.com/VIGNESHSHYAM/Video-Upload-and-Stream#readme"
+}

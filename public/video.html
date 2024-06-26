@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Upload and Stream</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet">
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+        #example-video {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center mb-4">Video Upload and Stream</h2>
+        <form id="upload-form" enctype="multipart/form-data">
+            <div class="custom-file mb-3">
+                <input type="file" class="custom-file-input" id="video-file" name="video-file" accept="video/*">
+                <label class="custom-file-label" for="video-file">Choose video file...</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Upload and Convert</button>
+        </form>
+        <div>
+            <video id="example-video" class="video-js vjs-default-skin" controls>
+                <source id="video-source" src="" type="application/x-mpegURL">
+            </video>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Video.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
+    <script>
+        document.getElementById('upload-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const formData = new FormData();
+            formData.append('video-file', document.getElementById('video-file').files[0]);
+
+            const response = await fetch('http://localhost:8000/upload', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const videoUrl = data.videoUrl;
+                const player = videojs('example-video');
+                document.getElementById('video-source').src = videoUrl;
+                player.src({ src: videoUrl, type: 'application/x-mpegURL' });
+                player.play();
+            } else {
+                alert('Upload failed');
+            }
+        });
+    </script>
+</body>
+</html>
